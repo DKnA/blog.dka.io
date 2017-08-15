@@ -1,0 +1,30 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "DK&A Blog"
+theme = "cocoa-hugo-theme"
+
+builddrafts         = false
+canonifyurls        = true
+author              = "DK&A Blog"
+pygmentsuseclasses  = true
+pluralizelisttitles = false
+googleAnalytics     = "UA-80717769-4"
+
+[params]
+latestpostscount       = 5                             # how many posts to display on the home page
+i18n_flags             = false                         # whether to display small country flags for available translations
+title = 				"DK&A Blog"
+# cachebuster            = true                          # add the current unix timestamp in query string for cache busting css assets
+email                  = "blog@dka.io"
+github                 = "https://github.com/DKnA"
+highlightjs            = false
+# instagram              = "//instagram.com/you"
+lang                   = "en"
+linkedin               = "https://www.linkedin.com/company-beta/18040437/"
+noshowreadtime         = false                         # if true, don't show "<x> minutes read" in posts
+twitter                = "https://twitter.com/dka_global"
+# highlightjslanguages = ["go"]                        # additional languages not included in the "common" set
+# highlightjsStyle     = "darcula"
+
+avatar                 = "img/profile.png" # path to image in static dir e.g img/avatar.png (do not use in the same time as gravatar)
+faviconfile = "img/favicon.png"

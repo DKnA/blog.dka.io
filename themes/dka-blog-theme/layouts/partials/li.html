@@ -1,8 +1,19 @@
 <li class="post-item">
+
+  <a href="{{ .Permalink }}">
+
+    <h2>{{ .Title }}</h2>
+
     {{ if .Site.Params.dateform }}
-    <span class="meta"><time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format .Site.Params.dateform }}</time></span>
+      <p class="meta">
+        <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format .Site.Params.dateform }}</time>
+      </p>
     {{ else }}
-    <span class="meta"><time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "Jan 2, 2006" }}</time></span>
+      <p class="meta">
+        <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>{{ .Date.Format "Jan 2, 2006" }}</time>
+      </p>
     {{ end }}
-    <a href="{{ .Permalink }}"><span>{{ .Title }}</span></a>
+    
+  </a>
+
 </li>

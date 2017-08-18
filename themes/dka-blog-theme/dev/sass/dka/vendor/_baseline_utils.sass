@@ -1,0 +1,87 @@
+// Sass Baseline Grid Utils
+//
+// Author:  Florian Plank, flo@polarblau.com
+// License: MIT
+//
+// ----------------------------------------------------------------------------
+
+// Define sizes which effect the vertical space an object
+// occupies (font-size, line-height, margin, padding, …)
+// only in terms of the base-font-size using `em` units
+// to create a vertical rythm.
+//
+// Helpers:
+// =======
+//
+// @function base($multiplier, [$parent-size: $base-font-size])
+//
+//    In order to calculate the right em value we pass a multiple of the
+//    base-font size and base will return the correct `em` value.
+//    As sizes defined using `em` are relative to the parent's size
+//    we can also specify a `$parent-size` as second parameter which defaults
+//    to the $base-font-size.
+//
+//    Examples:
+//      $base-font-size: 16px
+//      base(1)         => 1em      (16px)
+//      base(1.5)       => 1.5em    (24px)
+//      base(0.8)       => 1.5em    (12.8px)
+//      base(1.5, 0.8)  => 1.875em  (24px)
+//
+//
+// @mixin with-base-font-size($multiplier)
+//
+//    To simplify the work with parent font-sizes other than the one
+//    specified via $base-font-size we can use the `with-base-font-size`
+//    mixin.
+//
+//    Examples:
+//      +with-base-font-size(0.8)
+//        line-height: base(1.5)
+//
+//      is equivalient to
+//
+//      font-size: base(0.8)
+//      line-height: base(1.5, 0.8)
+
+// ----------------------------------------------------------------------------
+
+
+// Helper variable for use with `+with-base-font-size`
+$__parent-multiplier: 1 !global
+
+
+// Remove the unit of a length
+// @param {Number} $number - Number to remove unit from
+// @return {Number} - Unitless number
+@function strip-unit($number)
+  @if type-of($number) == 'number' and not unitless($number)
+    @return $number / ($number * 0 + 1)
+  @return $number
+
+
+// Convert `px` value into `em` relative to parent
+// @param {Number} $size - Pixel value to be converted
+// @param {Number} [$parent-size] - Parent's size, defaults to $base-font-size
+@function em($size, $parent-size: $base-font-size)
+  @return 1 / strip-unit($parent-size) * strip-unit($size) * 1em
+
+
+// Calculate `em` value based on $base-font-size
+// @param {Number} $multiplier - Multiple of base font size
+// @return {Number} $parent-multiplier — Multiplier used on parent element
+@function base($multiplier: 1, $parent-multiplier: null)
+  $__parent-multiplier: 1 !default
+  @if not $parent-multiplier
+    $parent-multiplier: $__parent-multiplier
+  @return em($base-font-size * $multiplier, $base-font-size * $parent-multiplier)
+
+
+// Inherit parent multiplier for use with `base()`
+// @param {Number} [$multiplier] - Multiple of base font size
+// @return {Number} [$parent-multiplier] — Multiplier used on parent element
+=with-base-font-size($multiplier: 1, $parent-multiplier: 1)
+  font-size: base($multiplier, $parent-multiplier)
+  $__parent-multiplier: $multiplier !global
+  @content
+  $__parent-multiplier: 1 !global

@@ -1,0 +1,75 @@
+// Clear after a container which contains floated elements
+=clearfix
+  @extend %clearfix
+
+// Remove all list styles
+=reset-list
+  @extend %reset-list
+
+// Push element by number of columns considering $grid-float-direction
+// @param {Number} $columns - Columns to push
+// @param {Number} $container-columns - Number of total columns in the next
+//    parent grid container
+=grid-push($columns: 1, $container-columns: $grid-columns-for-scope)
+  margin-#{$grid-float-direction}: grid-columns-width($columns, $container-columns)
+
+
+// Push element by number of columns considering negative $grid-float-direction
+// @param {Number} $columns - Columns to push
+// @param {Number} $container-columns - Number of total columns in the next
+//    parent grid container
+=grid-push-inverse($columns: 1, $container-columns: $grid-columns-for-scope)
+  $direction: left
+  @if $grid-float-direction == left
+    $direction: right
+  margin-#{$direction}: grid-columns-width($columns, $container-columns)
+
+
+// Pull element by number of columns considering $grid-float-direction
+// @param {Number} $columns - Columns to pull
+// @param {Number} $container-columns - Number of total columns in the next
+//    parent grid container
+=grid-pull($columns: 1, $container-columns: $grid-columns-for-scope)
+  margin-#{$grid-float-direction}: grid-columns-width($columns, $container-columns) * -1
+
+
+// Pull element by number of columns considering negative$grid-float-direction
+// @param {Number} $columns - Columns to pull
+// @param {Number} $container-columns - Number of total columns in the next
+//    parent grid container
+=grid-pull-inverse($columns: 1, $container-columns: $grid-columns-for-scope)
+  $direction: left
+  @if $grid-float-direction == left
+    $direction: right
+  margin-#{$direction}: grid-columns-width($columns, $container-columns) * -1
+
+
+// Pad a column element using baseline grid for horizontal values and
+//    the root element font size for vertical values
+// @param {List} $vals - Multipliers (1..4 values, works like padding attribute)
+=padded($vals: $top $right $bottom $left)
+  $_top   : null
+  $_right : null
+  $_bottom: null
+  $_left  : null
+  @if length($vals) == 1
+    $_top   : base($vals)
+    $_right : $vals * $grid-padding
+    $_bottom: $_top
+    $_left  : $_right
+  @else if length($vals) == 2
+    $_top   : base(nth($vals, 1))
+    $_right : nth($vals, 2) * $grid-padding
+    $_bottom: $_top
+    $_left  : $_right
+  @else if length($vals) == 3
+    $_top   : base(nth($vals, 1))
+    $_right : nth($vals, 2) * $grid-padding
+    $_bottom: base(nth($vals, 3))
+    $_left  : $_right
+  @else
+    $_top   : base(nth($vals, 1))
+    $_right : nth($vals, 2) * $grid-padding
+    $_bottom: base(nth($vals, 3))
+    $_left  : nth($vals, 4) * $grid-padding
+  padding: $_top $_right $_bottom $_left

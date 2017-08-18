@@ -1,0 +1,13 @@
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1, shrink-to-fit=no' name='viewport'>
+<meta name="referrer" content="no-referrer">
+{{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+<meta content='design, UX, UI, concept design, business design, digital, app development, development, engineering, product design, product development, service design' name='keywords'>
+<meta content='width=device-width' name='viewport'>
+<meta content='en' http-equiv='Content-Language'>
+{{ template "_internal/opengraph.html" . }}
+<meta content='#28292B' name='msapplication-TileColor'>
+<meta content='/images/favicons/ms-icon-144x144.png' name='msapplication-TileImage'>
+<meta content='#28292B' name='theme-color'>

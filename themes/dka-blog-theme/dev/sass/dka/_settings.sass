@@ -1,0 +1,41 @@
+// Determines the default size for all em/rem calculations
+// Also serves as base for the baseline grid
+$base-font-size             : 16px
+
+// Grid
+$grid-media-default-feature : min-width
+$grid-default-columns       : 2
+$grid-float-direction       : left
+$grid-gutter-width          : 0
+$grid-max-width             : 1200px
+// If +grid-visual-aid is called on a container
+// this will enable a visual grid in the background
+$grid-debug                 : false
+// Define horizontal spacing and sizes which react to the viewport
+// only in terms of the root font-size using `rem` units.
+$grid-padding               : 1rem
+// Most common breakpoints for convenience
+// Second param is grid columns per breakpoint
+$mobile                     : grid-media-breakpoint(320px 2)
+$mobile-landscape           : grid-media-breakpoint(480px 4)
+$mini-tablet                : grid-media-breakpoint(600px 4)
+$tablet-portrait            : grid-media-breakpoint(768px 8)
+$tablet-landscape           : grid-media-breakpoint(1024px 8)
+$desktop                    : grid-media-breakpoint(1200px 8)
+
+
+// Display breakpoint by name for development
+$bps: (mobile: $mobile, mobile-landscape: $mobile-landscape, mini-tablet: $mini-tablet, tablet-portrait: $tablet-portrait, tablet-landscape: $tablet-landscape, desktop: $desktop)
+
+body.development::after
+  position: fixed
+  top: 0
+  right: 0
+  background: pink
+  padding: 0.5em 1em
+  display: block
+  opacity: 0.5
+  z-index: 9999
+  @each $k, $bp in $bps
+    +grid-media($bp)
+      content: '#{$k}'

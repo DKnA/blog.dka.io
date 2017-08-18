@@ -1,0 +1,195 @@
+#emotions
+  position: relative
+  background: $black
+  +padded(3 0 2)
+
+  html.version-dark &
+    background: $white
+
+    .content
+      h2
+        color: $black
+
+      p
+        color: $black
+
+    .picture
+      figcaption
+        color: $grey
+
+  .content
+    z-index: 2
+    position: relative
+    color: $white
+    +padded(0 1)
+
+    h2
+      color: $white
+      text-align: left
+      +font-display(black, italic)
+      +with-base-font-size(2)
+        line-height: base(1.75)
+        margin-bottom: base(1.5)
+
+      span
+        color: $pink
+        display: none
+
+      br
+        display: none
+
+    p
+      +with-smaller-text
+
+  figure
+    margin: base(-4) 0 base(3)
+
+  .picture
+    position: relative
+    width: 100%
+    z-index: 1
+    overflow: hidden
+    line-height: 0
+
+    img
+      position: relative
+      width: 100%
+      height: auto
+      z-index: 2
+      -webkit-transform: initial
+
+    video
+      z-index: 1
+      position: absolute
+      top: 8%
+      left: 50%
+      transform: translate(-50%, 0)
+      width: auto
+      height: 100%
+
+  figcaption
+    text-align: right
+    z-index: 2
+    position: relative
+    color: $grey
+    +with-smaller-text
+    +padded(0 1)
+
+
+  //
+
+
+  +grid-media($mobile)
+    .content
+      h2
+        +with-base-font-size(3)
+          line-height: base(2.5)
+          margin-bottom: base(2)
+
+
+  +grid-media($mobile-landscape)
+    .content
+      h2
+        text-align: right
+        +with-base-font-size(3.5)
+          line-height: base(3)
+          margin-bottom: base(2)
+
+        span,
+        br
+          display: inline-block
+
+        br
+          width: 0
+
+      p
+        +grid-columns(3 of 4)
+        +grid-push(1)
+
+
+  +grid-media($mini-tablet)
+    +padded(5 0 3)
+
+    .content
+      +grid-columns(2 of 4)
+
+      h2
+        +grid-columns(3 of 2)
+        +grid-pull(2, 4)
+
+      p
+        +grid-columns(2 of 2)
+        +grid-push(0)
+
+    figure
+      +grid-columns(2 of 4)
+      margin-top: base(-6)
+
+      .picture
+        width: 135%
+        margin-left: -35%
+
+      figcaption
+        text-align: left
+        +padded(3 3 0 0)
+
+
+  +grid-media($tablet-portrait)
+    +padded(6 0 5)
+
+    .grid-wrapper
+      +padded(0 2)
+
+    .content
+      +padded(0)
+      +grid-columns(4 of 8)
+
+      h2
+        +grid-columns(6 of 4)
+        +grid-pull(2, 4)
+        +with-base-font-size(5)
+          line-height: base(4)
+          margin-bottom: base(2)
+
+      p
+        +with-normal-text
+
+    figure
+      +grid-columns(4 of 8)
+      margin-top: base(-7)
+
+      .picture
+        width: 150%
+        margin-left: -50%
+
+
+  +grid-media($tablet-landscape)
+    figure
+      margin-top: base(-8)
+
+      .picture
+        margin-left: -40%
+
+      figcaption
+        padding-right: 50%
+        padding-left: $grid-padding
+
+
+  +grid-media($desktop)
+    +padded(6 0)
+
+    .content
+      h2
+        +with-base-font-size(7.5)
+
+    figure
+      margin-top: base(-8.5)
+
+      .picture
+        width: 125%
+        margin-left: -25%
+
+      figcaption
+        padding-top: 0
+        margin-top: base(-3)
+        padding-left: $grid-padding * 2

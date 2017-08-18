@@ -1,0 +1,177 @@
+#hero
+  +padded(7.5 0 2)
+  z-index: 0
+  min-height: 35em
+  max-height: 90vh
+  position: relative
+  overflow: hidden
+
+  html.js &
+    height: 100vh
+    transition: height 0.5s $easeInOutSine
+
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    z-index: 1
+    opacity: 0.5
+    +linear-gradient(black, transparentize(black, 1))
+
+  html.version-dark &
+    background: $black
+
+  video
+    display: block
+    position: absolute
+    top: 50%
+    left: 50%
+    min-width: 100%
+    min-height: 100%
+    width: auto
+    height: auto
+    z-index: -100
+    -ms-transform: translateX(-50%) translateY(-50%)
+    -moz-transform: translateX(-50%) translateY(-50%)
+    -webkit-transform: translateX(-50%) translateY(-50%)
+    transform: translateX(-50%) translateY(-50%)
+    background-size: cover
+
+    .fallback
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background-size: cover
+      background-color: transparent
+      background-repeat: no-repeat
+
+  .content
+    padding-right: grid-columns-width(0.5)
+    padding-left: $grid-padding
+    z-index: 2
+    position: relative
+
+    html.version-dark &
+      color: $white
+
+    html.js &
+      opacity: 0
+      transition: opacity 2s $easeInOutSine
+
+    p
+      +with-normal-text
+      text-shadow: 0 0 15px transparentize($black, 0.1)
+
+  h2
+    margin-bottom: base(1)
+
+    html.js &
+      opacity: 0
+      transform: scale(1.05)
+      transition: all 1s ease-out
+
+    img
+      width: 100%
+      height: auto
+
+  .background-caption
+    display: none
+    text-align: right
+    color: $grey
+    +with-smaller-text
+    position: absolute
+    bottom: base(2)
+    left: 0
+    width: 100%
+    text-shadow: 0 0 15px transparentize($black, 0.1)
+
+    p
+      +padded(0 1)
+
+    html.version-dark &
+      color: $white
+
+    html.js &
+      opacity: 0
+      transition: opacity 0.75s ease-out
+
+  &.visible
+    html.js &
+      height: 90vh
+
+      h2
+        opacity: 1
+        transform: scale(1)
+
+      .content
+        opacity: 1
+
+      .background-caption
+        opacity: 1
+
+
+  //
+
+
+  +grid-media($mini-tablet)
+    .content
+      +grid-columns(1 of 2)
+      padding: 0 0 base(5) $grid-padding
+
+    h2
+      margin-bottom: base(1.5)
+
+    .background-caption
+      display: block
+
+      p
+        +grid-columns(2 of 4)
+        +grid-push(2)
+
+
+  +grid-media($tablet-portrait)
+    +padded(9.5 0 2)
+
+    .content
+      +padded(0 2)
+      padding: 0 0 base(8) $grid-padding * 2
+
+      p
+        +with-base-font-size(1)
+
+    .background-caption
+      p
+        +padded(0 2)
+        +grid-columns(4 of 8)
+        +grid-push(4)
+        +with-normal-text
+
+
+  +grid-media($tablet-landscape)
+    +padded(10.5 0 2)
+
+    .content
+      padding: 0 0 base(10) $grid-padding * 2
+
+    .background-caption
+      p
+        +grid-columns(3 of 8)
+        +grid-push(5)
+
+
+  +grid-media($desktop)
+    .content
+      padding: 0 0 base(12) $grid-padding * 2
+
+    .background-caption
+      p
+        text-align: center
+        +grid-columns(3 of 8)
+        +grid-push(5)
+        +padded(0)

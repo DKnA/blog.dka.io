@@ -1,0 +1,26 @@
+{{ partial "header.html" . }}
+
+<main id='main' role='main'>
+  <article>
+    <header>
+      <div class='grid-wrapper'>
+        <div class='container'>
+
+            {{ partial "page-heading.html" . }}
+
+        </div>
+      </div>
+    </header>
+    <section class='body'>
+      <div class='grid-wrapper'>
+        <div class='container'>
+
+          {{ .Content }}
+
+        </div>
+      </div>
+    </section>
+  </article>
+</main>
+
+{{ partial "footer.html" . }}

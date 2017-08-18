@@ -1,0 +1,265 @@
+#ecosystems
+  background: $white
+  +padded(4 0 0)
+
+  header
+    text-align: center
+    +clearfix
+    +padded(0 1)
+
+    h2
+      +font-display(bold)
+      +with-base-font-size(2)
+        margin-bottom: base(1.5)
+
+      em
+        +font-display(bold, italic)
+
+    p
+      +with-smaller-text
+
+    ul
+      +reset-list
+      margin: base(1.5) 0 0
+
+      li
+        +tag
+        width: 8em
+        margin-bottom: base(1)
+
+  //
+  .row
+    position: relative
+    margin: base(4) 0
+    +clearfix
+
+    &:last-child
+      margin-bottom: base(1.5)
+
+    .content
+      +padded(2)
+      z-index: 2
+      position: relative
+      background: transparentize($pure-white, 0.05)
+
+    // tag
+    h3
+      +tag
+      width: 8em
+      margin: 0
+
+    // actual headline
+    h4
+      +font-display(bold, italic)
+      +with-base-font-size(2)
+        line-height: base(2)
+        margin-top: base(1)
+        margin-bottom: base(1.5)
+
+    // body text
+    p
+      +font-body(normal, italic)
+      +with-smaller-text
+        line-height: base(1.5)
+
+      &.keywords
+        color: $grey
+        margin: 0
+
+    figure
+      position: relative
+      overflow: hidden
+      z-index: 1
+      margin-top: base(-8)
+
+      img, video
+        width: 120%
+        height: auto
+
+      figcaption
+        color: $white
+        +padded(1 2 0.5)
+        text-align: center
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+
+    &.auto,
+    &.health
+      h3
+        background: $pink
+
+      .content
+        color: $white
+        background: transparentize($black, 0.05)
+
+      p
+        &.keywords
+          color: darken($white, 31)
+
+
+    // push images for mobile
+    &:nth-child(even)
+      figure
+        margin-left: $grid-padding
+        margin-right: $grid-padding * -1
+
+    &:nth-child(odd)
+      figure
+        margin-right: $grid-padding
+        margin-left: $grid-padding * -1
+
+
+  //
+
+
+  +grid-media($mobile-landscape)
+    .row
+      &:nth-child(even)
+        figure
+          margin-left: $grid-padding * 2
+          margin-right: $grid-padding * -2
+
+      &:nth-child(odd)
+        figure
+          margin-right: $grid-padding * 2
+          margin-left: $grid-padding * -2
+
+
+  +grid-media($mini-tablet)
+    +padded(8 0 0.5)
+
+    header
+      padding: 0 grid-columns-width(0.5)
+
+      h2
+        +with-base-font-size(3)
+          margin-bottom: base(1.5)
+
+      p
+        padding: 0 grid-columns-width(0.5, 3)
+
+      ul
+        margin: base(2) 0 0
+
+    .row
+      h4
+        +with-base-font-size(3)
+          margin-bottom: base(3)
+
+      .content
+        width: grid-columns-width(3, 4)
+
+      figure
+        width: grid-columns-width(3, 4)
+
+      &:nth-child(even),
+      &:nth-child(odd)
+        figure
+          margin-right: 0 // reset
+          margin-left: 0 // reset
+          +grid-push(1)
+
+
+  +grid-media($tablet-portrait)
+    +padded(7 0 1)
+
+    header
+      padding: 0 grid-columns-width(1.5)
+
+      p
+        +with-normal-text
+          padding: 0
+
+      ul
+        margin: base(3) 0 0
+
+    .row
+      margin: base(5) 0
+
+      p
+        +with-normal-text
+
+      .content
+        +grid-columns(5)
+
+      figure
+        +grid-columns(4)
+        margin-top: 0 // reset
+
+        img, video
+          width: 100%
+
+        figcaption
+          width: grid-columns-width(3, 4)
+          +padded(1 2)
+
+      &:nth-child(even)
+        .content
+          float: right
+
+        figure
+          margin-left: 0
+          margin-right: grid-columns-width(1) * -1
+
+          figcaption
+            text-align: left
+
+      &:nth-child(odd)
+        figure
+          margin-left: 0
+          +grid-pull(1)
+
+          figcaption
+            left: auto
+            right: 0
+            text-align: right
+
+      &.home
+        .content
+          margin-top: base(4)
+
+      &.work
+        .content
+          margin-top: base(6)
+
+      &.auto,
+      &.health
+        figure
+          margin-top: base(4)
+
+
+  +grid-media($tablet-landscape)
+    +padded(8 0 2)
+
+    header
+      p
+        padding: 0 grid-columns-width(0.5, 3)
+
+    .row
+      margin: base(8) 0
+
+      h4
+        +with-base-font-size(4)
+
+      .content
+        +grid-columns(4)
+
+      figure
+        +grid-columns(5)
+
+        figcaption
+          width: grid-columns-width(4, 5)
+
+
+  +grid-media($desktop)
+    header
+      h2
+        +with-base-font-size(4)
+
+    .row
+      margin: base(10) 0
+
+      .content
+        +padded(3)

@@ -1,0 +1,40 @@
+#header
+  +clearfix
+  position: absolute
+  z-index: 10
+  top: 0
+  left: 0
+  width: 100%
+  padding: base(1) 0
+
+  h1, p
+    margin: 0
+    font-size: base(1.5)
+
+  img
+    height: base(1)
+    vertical-align: middle
+
+  // Logo on the left
+  h1
+    float: left
+
+  // Location marker on the right
+  p
+    float: right
+
+  html.js body.home &
+    h1, p
+      opacity: 0
+      transition: opacity 1.5s $easeInOutSine
+
+  &.visible
+    html.js body.home &
+      h1, p
+        opacity: 1
+
+  //
+
+
+  +grid-media($mobile-landscape)
+    padding: base(2) 0

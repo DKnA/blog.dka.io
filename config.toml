@@ -1,7 +1,7 @@
 baseURL = "/"
 languageCode = "en-us"
 title = "DK&A Blog"
-theme = "cocoa-hugo-theme"
+theme = "dka-blog-theme"
 
 builddrafts         = false
 canonifyurls        = true

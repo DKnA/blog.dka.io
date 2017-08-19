@@ -1,0 +1,91 @@
+#footer
+  background: $black
+  color: $white
+  text-align: center
+  +padded(4 0)
+
+  ul
+    +reset-list
+
+  // "MVP" Headline
+  h2
+    +font-display(bold)
+    +with-base-font-size(2)
+      margin-bottom: base(4)
+
+    // Prevent the TM symbol from wrapping
+    span
+      white-space: nowrap
+      display: inline-block
+
+    // TM symbol
+    sup
+      +font-body
+      +with-base-font-size(1, 2)
+        margin-top: base(-0.5)
+
+
+  // Addresses
+  ul.offices
+    +clearfix
+
+    li
+      +with-smaller-text
+        margin-bottom: base(3)
+
+    address
+      font-style: normal
+
+    h3
+      +with-base-font-size(1)
+        margin: base(1) 0
+
+    p
+      margin: 0
+
+  // Social media links
+  ul.social-links
+    li, a
+      display: inline-block
+
+    a
+      padding: $grid-padding * 0.25
+
+    img
+      height: base(1)
+
+
+  //
+
+
+  +grid-media($mini-tablet)
+    h2
+      +with-base-font-size(3)
+        margin-bottom: base(4)
+
+    ul.offices
+      li
+        +grid-columns(1 of 3)
+
+
+  +grid-media($tablet-landscape)
+    +padded(5 0 4)
+
+    ul.offices
+      li
+        +grid-columns(1 of 3)
+        +with-smaller-text
+          margin-bottom: base(3)
+
+    ul.social-links
+      img
+        height: base(1.5)
+
+
+  +grid-media($desktop)
+    ul.offices
+      margin-left: grid-columns-width(1)
+      margin-right: grid-columns-width(1)
+
+      li
+        +grid-columns(2 of 6)

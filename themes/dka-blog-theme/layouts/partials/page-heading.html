@@ -1,0 +1,10 @@
+<h1>
+  {{ if .Params.heading }}
+      {{ .Params.heading }}
+  {{ else }}
+      {{ .Title }}
+  {{ end }}
+</h1>
+{{ if .Params.byline }}
+  <p class='byline'>{{ .Params.byline }}</p>
+{{ end }}

@@ -1,0 +1,50 @@
+{{ partial "header.html" . }}
+
+<main id='main' role='main'>
+  <article>
+    <header>
+      <div class='grid-wrapper'>
+        <div class='container'>
+
+            {{ partial "page-heading.html" . }}
+
+        </div>
+      </div>
+    </header>
+
+    <section class='body'>
+      <div class='grid-wrapper'>
+        <div class='container'>
+          <div class='header'>
+            <p class='meta'>
+              {{ if and .Site.Params.dateformfull .Site.Params.dateform }}
+                {{ .Date.Format .Site.Params.dateform }}
+              {{ else }}
+                {{ .Date.Format "Jan 2, 2006" }}
+              {{ end }}
+
+              {{ if .Params.author }}
+                {{ if .Params.authorLink }}
+                  by <a href={{ printf "%s" $.Params.authorLink }}>{{.Params.author}}</a>
+                {{ else }}
+                  {{.Params.author}}
+                {{ end }}
+              {{ end }}
+
+              {{ if not .Site.Params.noshowreadtime }}
+                ({{ i18n "readingTime" .ReadingTime }})
+              {{ end }}
+            </p>
+          </div>
+
+          {{ .Content }}
+
+          <nav><p><a href="/">{{ i18n "backToPosts" }}</a></p></nav>
+
+        </div>
+      </div>
+    </section>
+  </article>
+</main>
+
+{{ partial "footer.html" . }}

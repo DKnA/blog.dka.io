@@ -1,0 +1,57 @@
+<!-- HTTPS -->
+
+{{ if .Site.Params.forcehttps }}
+<script type="text/javascript">
+    var baseURL = '{{ .Site.BaseURL }}';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+{{ end }}
+
+<!-- CSS -->
+
+{{ if .Site.Params.highlightjs }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/{{ .Site.Params.highlightjsStyle | default "default" }}.min.css">
+{{ end }}
+
+<!-- Fonts and icon CSS -->
+
+<link href='//fonts.googleapis.com/css?family=Open+Sans:300,300i,600,600i' rel='stylesheet'>
+<script src='//use.typekit.net/eav5ssn.js'></script>
+<script>
+  try{Typekit.load({ async: true });}catch(e){}
+  document.documentElement.classList.remove('no-js');
+  document.documentElement.classList.add('js');
+</script>
+
+{{ if .Site.Params.cachebuster }}
+
+    {{ $t := now }}
+    <link rel="stylesheet" href="/css/site.css?t={{$t}}">
+    {{range .Site.Params.extracssfiles}}
+        <link rel="stylesheet" href="{{.}}?t={{$t}}">
+    {{ end }}
+
+{{ else }}
+    <link rel="stylesheet" href="/css/site.css">
+    {{range .Site.Params.extracssfiles}}
+        <link rel="stylesheet" href="{{.}}">
+    {{end}}
+
+{{ end }}
+
+<!-- Icon -->
+<link rel="shortcut icon"
+{{ if .Site.Params.faviconfile }}
+    href="/{{ .Site.Params.faviconfile }}"
+{{ else }}
+    href="/img/favicon.ico"
+{{ end }}
+>
+
+<!-- RSS -->
+{{ if .RSSLink }}
+  <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+{{ end }}

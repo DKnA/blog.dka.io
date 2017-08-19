@@ -1,0 +1,107 @@
+// Extract
+
+// Font families
+
+@function fonts-path($file)
+  @return '../fonts/#{ $file }'
+
+@function noe-display-name($cut)
+  @return 'Noe Display #{ $cut }'
+
+=noe-display-font-face($cut)
+  $name: noe-display-name($cut)
+  $path: fonts-path($name)
+  font-family: $name
+  src: url('#{ $path }.eot')
+  src: url('#{ $path }.eot?#iefix') format('embedded-opentype'), url('#{ $path }.woff') format('woff')
+
+@font-face
+  +noe-display-font-face('Bold')
+
+@font-face
+  +noe-display-font-face('Bold Italic')
+
+@font-face
+  +noe-display-font-face('Black Italic')
+
+=font-body($weight: normal, $style: normal)
+  font-family: 'input-mono', monospace
+  @if $weight == bold
+    font-weight: 700
+  @else
+    font-weight: 400
+  font-style: normal
+
+=font-display($weight: normal, $style: normal)
+  @if $weight == bold
+    @if $style == italic
+      font-family: noe-display-name('Bold Italic'), serif
+    @else
+      font-family: noe-display-name('Bold'), serif
+  @else if $weight == black
+    @if $style == italic
+      font-family: noe-display-name('Black Italic')
+  @else
+    font-family: noe-display-name('Bold'), serif
+  font-weight: normal
+  font-style: normal
+
+=font-body-long($weight: light, $style: normal)
+  font-family: 'Open Sans', sans-serif
+  @if $weight == bold
+    font-weight: 600
+  @else
+    font-weight: 300
+  font-style: $style
+
+// ----------------------------------------------------------------------------
+
+// Basic type styles
+
+body
+  +font-body
+  +with-base-font-size(1)
+    line-height: base(1.5)
+
+h1
+  +with-base-font-size(3)
+    line-height: base(3)
+    margin: 0 0 base(2)
+
+h2
+  +with-base-font-size(2)
+    line-height: base(2)
+    margin: 0 0 base(1)
+
+h3
+  +with-base-font-size(1.5)
+    line-height: base(1.5)
+    margin: 0 0 base(1)
+
+h4
+  +with-base-font-size(1)
+    line-height: base(1.5)
+    margin: 0 0 base(1)
+
+h5
+  +with-base-font-size(1)
+    line-height: base(1.5)
+    margin: 0 0 base(1)
+
+h6
+  +with-base-font-size(1)
+    line-height: base(1.5)
+    margin: 0 0 base(1)
+
+// ----------------------------------------------------------------------------
+
+// Basic font-sizes with line heights
+=with-smaller-text
+  +with-base-font-size(0.75) // 12px
+    line-height: base(1.5)
+    @content
+
+=with-normal-text
+  +with-base-font-size(0.875) // 14px
+    line-height: base(1.75)
+    @content

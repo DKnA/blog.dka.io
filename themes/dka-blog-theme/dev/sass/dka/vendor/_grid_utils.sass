@@ -1,0 +1,226 @@
+// Sass Grid Utils
+//
+// Author:  Florian Plank, flo@polarblau.com
+// URL:     https://gist.github.com/polarblau/f2e86c06f8e57541ad99
+// License: MIT
+//
+// ----------------------------------------------------------------------------
+
+// A grid layout is made up of columns — floated elements with a width
+// defined as percentage. The width is thereby defined in relation to a
+// container element.
+// This toolkit also provides support for working with fluid layouts which
+// may use a different number of columns for different screen sizes
+// as well some visual aids for debugging
+//
+// Helpers:
+// =======
+//
+// @function grid-media-breakpoint($query)
+//
+//    Register a breakpoint for the use with the +grid-media mixin as well
+//    as the visual debugging tools. Queries are specified as pairs of a
+//    pixel value which defines the breakpoint using the $grid-media-default-feature
+//    setting as well as a number of columns for this particular breakpoint.
+//
+//    Example:
+//      $desktop: grid-media-breakpoint(1280px 8)
+//      // ... later ...
+//      .selector
+//        +grid-media($desktop)
+//          font-size: 2em
+//
+//
+// @function grid-columns-width($columns, $container-columns)
+//
+//    Calculates the width for a number of columns for a given
+//    container context:
+//
+//    Example:
+//      .selector
+//        margin-left: grid-columns-width(1)
+//
+//
+// +grid-media($query)
+//
+//    Specify features in a block for a given breakpoint.
+//    (For an example check the grid-media-breakpoint function above)
+//
+//
+// +grid-columns($span)
+//
+//    Transform an element into a column by defining a width and floating it.
+//
+//    Example:
+//      .selector
+//        +grid-columns(1 of 4)
+//
+//
+// +grid-container
+//
+//    Convert an element into a grid container. Will clear after and manage
+//    centering as well max-width if specified via the settings.
+//
+//    Example:
+//      .selector
+//        +grid-container
+//
+//
+// +grid-visual-aid
+//
+//    Will render a visual representation of the grid in the background using
+//    CSS gradients in a zebra pattern. Only visible if the $grid-debug
+//    flag is set to true.
+//
+//    Example:
+//      .selector
+//        +grid-container
+//        +grid-visual-aid
+//
+// ----------------------------------------------------------------------------
+
+
+// Settings
+$grid-breakpoints           : () !global !default
+$grid-media-default-feature : min-width !default
+$grid-default-columns       : 2 !default
+$grid-float-direction       : left !default
+$grid-max-width             : 1200px !default
+$grid-debug                 : true !default
+
+// Scoped
+$grid-columns-for-scope     : $grid-default-columns !global
+
+
+// Register a breakpoint to be used with +grid-media
+// @param {List} $query - Pixel value to be used with
+//    `$grid-media-default-feature` and number of columns
+// @example:
+//    $desktop: grid-media-breakpoint(1280px 8)
+@function grid-media-breakpoint($query: $value $columns)
+  @if length($query) == 1 // Only value provided
+    $query: $grid-media-default-feature nth($query, 1) $grid-max-columns
+
+  @else if is-even(length($query)) // No feature provided
+    $query: $grid-media-default-feature nth($query, 1) nth($query, 2)
+
+  @if not index($query, $grid-breakpoints)
+    $grid-breakpoints: append($grid-breakpoints, $query, comma) !global
+
+  @return $query
+
+
+// Get width for number of columns as percentage
+// @param {Number} $columns - Columns to count
+// @param {Number} $container-columns - Number of total columns in the next
+//    parent grid container
+@function grid-columns-width($columns, $container-columns: $grid-columns-for-scope)
+  @return percentage($columns / $container-columns)
+
+
+// Use a breakpoint
+// @param {List} $query - Pixel value to be used with
+//    `$grid-media-default-feature` and number of columns
+// @yield
+// @example:
+//    .selector
+//      +grid-media($desktop)
+//        color: red
+=grid-media($query: $feature $value $columns)
+  $media-query: "screen and (" + nth($query, 1) + ": " + nth($query, 2) + ") "
+
+  // OUT:
+  @media #{$media-query}
+    $grid-columns-for-scope: nth($query, 3) !global
+    @content
+    $grid-columns-for-scope: $grid-default-columns !global
+
+
+// Helper to turn an element into a column, handles float and width
+// @param {List} $span - Format: "2 of 4"
+//    Where 4 is the amount of total columns for the next
+//    parent grid container
+=grid-columns($span: $columns of $container-columns)
+  $columns: nth($span, 1)
+  // no container columns provided, use default
+  $container-columns: $grid-columns-for-scope
+  $grid-columns-for-scope: $grid-default-columns !default
+
+  // e.g. "2 of 12"
+  @if length($span) == 3
+    $container-columns: nth($span, 3)
+
+  // OUT:
+  float: $grid-float-direction
+  width: grid-columns-width($columns, $container-columns)
+
+
+// Helper to turn an element into a grid container
+=grid-container
+  // OUT:
+  +clearfix
+  max-width: $grid-max-width
+  margin-left: auto
+  margin-right: auto
+  position: relative
+
+
+// ----------------------------------------------------------------------------
+
+
+// PRIVATE Generate gradient-stops for the visual grid aid
+// @param {Number} $grid-columns - How many columns wide
+// @param {Color} $color - Color for odd column highlight
+@function -grid-visual-aid-column-gradient-stops($grid-columns, $color: hotpink)
+  $column-width: grid-columns-width(1, $grid-columns)
+  $column-offset: 0
+
+  $values: (transparent 0, $color 0)
+
+  @for $i from 0 to $grid-columns
+    @if $i % 2 == 0
+      $values: append($values, transparent $column-offset, comma)
+      $values: append($values, transparent $column-offset + $column-width, comma)
+    @else
+      $values: append($values, $color $column-offset, comma)
+      $values: append($values, $color $column-offset + $column-width, comma)
+    $column-offset: $column-offset + $column-width
+
+  @return $values
+
+
+// PRIVATE Generate gradient for the visual grid aid
+// @param {List} $values
+=-grid-visual-aid-column-gradient($values...)
+  // OUT:
+  background-image: -webkit-linear-gradient(left, $values)
+  background-image: -moz-linear-gradient(left, $values)
+  background-image: -ms-linear-gradient(left, $values)
+  background-image: -o-linear-gradient(left, $values)
+  background-image: unquote("linear-gradient(to left, #{$values})")
+
+
+// Render visual grid aid for container element
+=grid-visual-aid
+  @if $grid-debug
+    // OUT:
+    &:before
+      $gradient-stops: -grid-visual-aid-column-gradient-stops($grid-columns-for-scope)
+      +-grid-visual-aid-column-gradient($gradient-stops)
+      content: ""
+      display: inline-block
+      height: 100%
+      width: 100%
+      left: 0
+      right: 0
+      margin: 0 auto
+      opacity: 0.4
+      pointer-events: none
+      position: absolute
+      z-index: -1
+
+      @each $breakpoint in $grid-breakpoints
+        @if $breakpoint
+          +grid-media($breakpoint)
+            $gradient-stops: -grid-visual-aid-column-gradient-stops($grid-columns-for-scope)
+            +-grid-visual-aid-column-gradient($gradient-stops)

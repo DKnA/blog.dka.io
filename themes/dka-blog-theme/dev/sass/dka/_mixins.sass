@@ -1,0 +1,38 @@
+%reset-list
+  list-style: none
+  margin: 0
+  padding: 0
+
+%clearfix
+  &::after
+    clear: both
+    content: ""
+    display: table
+
+=tag($inverted: false)
+  display: inline-block
+  margin: 0 $grid-padding / 2
+  text-align: center
+  @if $inverted
+    background: $black
+    color: $white
+  @else
+    background: transparentize($pink, 0.4)
+    color: $black
+  +padded(0 1)
+  +with-base-font-size(0.75)
+    height: base(1.75)
+    line-height: base(1.8)
+
+%underline
+  border-bottom: 2px solid transparentize($pink, 0.3)
+  box-shadow: inset 0 -0.4em 0 transparentize($pink, 0.3)
+
+  &:hover
+    border-color: $light-grey
+    box-shadow: inset 0 -0.4em 0 $light-grey
+
+@mixin linear-gradient($from, $to)
+  background: $from
+  background: -webkit-linear-gradient(top, $from, $to)
+  background: linear-gradient(to bottom, $from, $to)

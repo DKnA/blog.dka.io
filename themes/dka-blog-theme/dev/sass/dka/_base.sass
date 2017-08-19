@@ -1,0 +1,33 @@
+// Basic styling and resets, global
+html
+  font-size: $base-font-size
+  box-sizing: border-box
+  height: 100%
+
+body
+  height: 100%
+  background: $pure-white
+  color: $black
+
+*, *:before, *:after
+  box-sizing: inherit
+
+a, a:visited, a:hover, a:active
+  text-decoration: none
+  color: $pink
+
+figure
+  margin: 0
+
+.grid-wrapper
+  margin: 0 $grid-padding
+
+  +grid-media($mobile-landscape)
+    margin: 0 $grid-padding * 2
+
+  +grid-media($tablet-landscape)
+    margin: 0 $grid-padding * 4
+
+.grid-container
+  +grid-container
+  +grid-visual-aid

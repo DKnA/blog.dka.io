@@ -1,0 +1,37 @@
+{{ partial "header.html" . }}
+
+<main id='main' class='post-list' role='main'>
+  <article>
+    <section class='body'>
+      <div class='grid-wrapper'>
+        <div class='container'>
+
+          {{ $totalpostscount := len (where .Data.Pages "Section" "post") }}
+          {{ $latestpostscount := .Site.Params.latestpostscount | default $totalpostscount }}
+          {{ if gt $latestpostscount 0 }}
+
+            <h1>{{ i18n "latestPosts" }}</h1>
+            <ul>
+
+                {{ range (first $latestpostscount (where .Data.Pages.ByPublishDate "Section" "post")) }}
+                    {{ partial "li.html" . }}
+                {{ end }}
+
+                {{ if gt $totalpostscount $latestpostscount }}
+                    {{ range where .Site.Menus.main "Identifier" "post" }}
+                        <li>
+                            <a {{ printf "href=%q " .URL | safeHTMLAttr }}><span>See more&hellip;</span></a>
+                        </li>
+                    {{ end }}
+                {{ end }}
+            </ul>
+
+          {{ end }}
+
+        </div>
+      </div>
+    </section>
+  </article>
+</main>
+
+{{ partial "footer.html" . }}

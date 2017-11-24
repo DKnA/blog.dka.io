@@ -1,6 +1,7 @@
 .PHONY: css clean
 
 css: clean
+	mkdir ../static/css
 	sass --style compressed sass/site.css.sass ../static/css/site.css
 	# sass --style expanded --debug-info sass/site.css.sass ../static/css/site.css
 	# sass --style expanded --debug-info --watch ./sass ../static/css

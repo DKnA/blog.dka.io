@@ -8,7 +8,7 @@
             </div>
             <nav class="section-items">
                 <ul>
-                {{ range .Data.Pages.ByDate }}
+                {{ range sort .Data.Pages.Reverse }}
                     <li><a {{ printf "href=%q" .URL | safeHTMLAttr }}>{{ default .Title .Params.heading }}</a></li>
                 {{ end }}
                 </ul>

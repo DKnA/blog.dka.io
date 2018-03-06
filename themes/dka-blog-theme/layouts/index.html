@@ -13,7 +13,7 @@
             <h1>{{ i18n "latestPosts" }}</h1>
             <ul>
 
-                {{ range (first $latestpostscount (where .Data.Pages.ByPublishDate "Section" "post")) }}
+                {{ range (first $latestpostscount (where .Data.Pages.ByPublishDate.Reverse "Section" "post")) }}
                     {{ partial "li.html" . }}
                 {{ end }}
 

@@ -1,6 +1,6 @@
 ---
 title: "Lessons on Event Sourcing and CQRS"
-date: 2017-12-05T22:00:39-06:00
+date: 2018-03-05T19:00:39-08:00
 draft: false
 author: "Piotr Adamski"
 authorLink: "https://twitter.com/mcveat"
@@ -53,7 +53,7 @@ It was a humbling experience to event source everything. From the distance of a 
 
 # Will we do it again?
 
-Definitely! Despite me talking mostly about things that could go better, there was a ton that went right. We had plenty of well structured tests, CI and CD worked like a charm. I am very confident we've embraced the concept and gained enough experience to take CQRS and Event Sourcing to the next level. 
+Definitely! Despite me talking mostly about things that could go better, there was a ton that went right. We had plenty of well structured tests, CI and CD worked like a charm. I am very confident we've embraced the concept and gained enough experience to take CQRS and Event Sourcing to the next level.
 
 There are two things I'd like to try doing differently. I am tempted to move from Event Sourcing to Command Sourcing. The difference being that instead of persisting events, you're persisting commands. Commands that cannot be executed to generate events are still significant data. It might be important, that someone tried to log in and failed three times. You can learn about exploits amd how confusing the user interface and api are. You can easily monitor failure.
 
